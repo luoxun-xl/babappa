@@ -43,7 +43,7 @@ mamba install -c bioconda prank iqtree paml -y
 mamba install -c conda-forge biopython parallel scipy statsmodels pandas openpyxl -y
 ```
 
-1. Clone BABAPPA repository
+2. Clone BABAPPA repository
 
 ```bash
 git clone git@github.com:luoxun-xl/babappa.git
@@ -86,6 +86,7 @@ BABAPPA’s built-in `seqQC.py` script automatically filters and logs any proble
 
 ## EXAMPLE FOLDER STRUCTURE AFTER RUNNING
 
+```bash
 BABAPPA/
 ├── QCseq/
 ├── msa/
@@ -98,6 +99,7 @@ BABAPPA/
 ├── sitemodel/
 ├── sitemodelanalysis/
 └── SiteModelBH/
+```
 
 ## ACKNOWLEDGMENT
 
