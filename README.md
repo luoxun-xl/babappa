@@ -1,14 +1,13 @@
 # babappa
 
-BABAPPA: BAsh-Based Automated Parallel Positive selection Analysis
+**BABAPPA**: **BA**sh-**B**ased **A**utomated **P**arallel **P**ositive selection **A**nalysis
 
-BABAPPA is a fully automated, modular, and highly efficient pipeline designed for detecting episodic positive selection across gene families.  
-It integrates quality control, codon-aware multiple sequence alignment, phylogenetic reconstruction, branch and branch-site model testing using codeml (PAML), and statistical validation including likelihood ratio tests and Benjamini–Hochberg corrections.  
+**BABAPPA** is a fully automated, modular, and highly efficient pipeline designed for detecting episodic positive selection across gene families.
+It integrates quality control, codon-aware multiple sequence alignment, phylogenetic reconstruction, branch and branch-site model testing using codeml (PAML), and statistical validation including likelihood ratio tests and Benjamini–Hochberg corrections.
+
 A user-friendly GUI is also available for beginners.
 
-----------------------------------------
-
-FEATURES
+## FEATURES
 
 - End-to-end automation: from raw FASTA files to final positive selection reports
 - Codon-aware MSA using PRANK
@@ -18,76 +17,51 @@ FEATURES
 - Automatic Likelihood Ratio Test (LRT) calculation and FDR correction
 - Detailed final output in Excel (.xlsx) format
 
-----------------------------------------
+## REPOSITORY STRUCTURE
 
-REPOSITORY STRUCTURE
+- `seqQC.py`: Quality control for input coding sequences
+- `script0.sh`: Sequence QC + codon-based MSA (PRANK)
+- `script1.sh`: Phylogenetic inference (IQ-TREE2) + foreground branch generation
+- `4GroundBranchGenerator.py`: Create Newick files with labeled foreground branches
+- `run_codeml.py`: Automated codeml model running (site, branch, branch-site)
+- `script2.sh`, `script3.sh`: Parallelized codeml execution scripts
+- `script5.sh`, `script6.sh`: Extraction of lnL and np values from codeml output
+- `lrt_bh_correction.py`: LRT computation and Benjamini–Hochberg FDR correction (branch models)
+- `lrt_bh_correction.sitemodel.py`: LRT and FDR correction for site models
+- `script7.sh`, `script8.sh`: Batch LRT processing and final report generation
+- `babappa.sh`: Main master script to run the full pipeline
 
-- seqQC.py : Quality control for input coding sequences
-- script0.sh : Sequence QC + codon-based MSA (PRANK)
-- script1.sh : Phylogenetic inference (IQ-TREE2) + foreground branch generation
-- 4GroundBranchGenerator.py : Create Newick files with labeled foreground branches
-- run_codeml.py : Automated codeml model running (site, branch, branch-site)
-- script2.sh, script3.sh : Parallelized codeml execution scripts
-- script5.sh, script6.sh : Extraction of lnL and np values from codeml output
-- lrt_bh_correction.py : LRT computation and Benjamini–Hochberg FDR correction (branch models)
-- lrt_bh_correction.sitemodel.py : LRT and FDR correction for site models
-- script7.sh, script8.sh : Batch LRT processing and final report generation
-- babappa.sh : Main master script to run the full pipeline
+## INSTALLATION INSTRUCTIONS
 
-----------------------------------------
+1. Create environment
 
-INSTALLATION INSTRUCTIONS
+```bash
+conda create --name babappa
+conda activate babappa
 
-1. Install WSL and Ubuntu (Windows users only)
+mamba install -c bioconda prank iqtree paml -y
+mamba install -c conda-forge biopython parallel scipy statsmodels pandas openpyxl -y
+```
 
-Open Powershell as Administrator and run:
+1. Clone BABAPPA repository
 
-wsl --install
+```bash
+git clone git@github.com:luoxun-xl/babappa.git
+cd babappa
+chmod a+x ./*.sh
+```
 
-(Optional) To install a specific Ubuntu version:
-
-wsl --install -d Ubuntu-22.04
-
-After installation, restart your system if prompted.
-
-Launch Ubuntu from the Start Menu and set username/password.
-
-----------------------------------------
-
-2. Install Required Tools inside Ubuntu (WSL terminal)
-
-Update system and install software:
-
-sudo apt update && sudo apt upgrade -y
-sudo apt install prank iqtree paml parallel python3 python3-pip -y
-pip3 install biopython scipy statsmodels pandas openpyxl
-
-----------------------------------------
-
-3. Clone BABAPPA repository
-
-Inside WSL:
-
-git clone https://github.com/sinhakrishnendu/babappa.git
-cd BABAPPA
-chmod +x babappa.sh
-
-----------------------------------------
-
-RUNNING BABAPPA
+## RUNNING BABAPPA
 
 To run the full pipeline on your data:
 
+```bash
 ./babappa.sh
+```
 
-Input sequences should be placed inside an input/ folder.  
-Outputs will be saved inside structured folders (QCseq/, msa/, treefiles/, codemloutput/, etc.)
+## INPUT REQUIREMENTS
 
-----------------------------------------
-
-INPUT REQUIREMENTS
-
-- Input FASTA files must contain coding sequences (CDS).
+- Input FASTA files must contain coding sequences (CDS), `test.fasta`.
 - Each sequence must:
   - Start with ATG (start codon)
   - End with a valid stop codon (TAA/TAG/TGA)
@@ -97,11 +71,9 @@ INPUT REQUIREMENTS
   - CDS length greater than 300bp
 - Sequences will be scanned for length outlier and if found will be discarded
 
-BABAPPA’s built-in seqQC.py script automatically filters and logs any problematic sequences.
+BABAPPA’s built-in `seqQC.py` script automatically filters and logs any problematic sequences.
 
-----------------------------------------
-
-OUTPUT FILES
+## OUTPUT FILES
 
 - MSA files (PRANK aligned)
 - Treefiles (IQ-TREE maximum likelihood trees)
@@ -112,7 +84,7 @@ OUTPUT FILES
 
 ----------------------------------------
 
-EXAMPLE FOLDER STRUCTURE AFTER RUNNING
+## EXAMPLE FOLDER STRUCTURE AFTER RUNNING
 
 BABAPPA/
 ├── QCseq/
@@ -126,21 +98,13 @@ BABAPPA/
 ├── sitemodel/
 ├── sitemodelanalysis/
 └── SiteModelBH/
- 
-----------------------------------------
 
-ACKNOWLEDGMENT
+## ACKNOWLEDGMENT
 
 The name "BABAPPA" was lovingly inspired by my little son, whose fascination with butterflies led to "BABAPPA" becoming his joyful synonym for "butterfly."
 
-----------------------------------------
-
-LICENSE
+## LICENSE
 
 This project is licensed under the MIT License.
 
-----------------------------------------
-
 Happy Positive Selection Hunting with BABAPPA!
-
-----------------------------------------
