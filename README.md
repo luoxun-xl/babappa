@@ -68,8 +68,6 @@ To run the full pipeline on your data:
   - Be a multiple of 3 nucleotides
   - Have no internal stop codons
   - CDS length is divisible by 3
-  - CDS length greater than 300bp
-- Sequences will be scanned for length outlier and if found will be discarded
 
 BABAPPA’s built-in `seqQC.py` script automatically filters and logs any problematic sequences.
 

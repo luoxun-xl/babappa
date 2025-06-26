@@ -14,7 +14,7 @@ def is_valid_sequence(seq: str) -> tuple[bool, str | None]:
     Quality criteria:
       - Starts with ATG
       - Ends with a valid stop codon (TAA, TAG, or TGA)
-      - Length > 300 and divisible by 3
+    #   - Length > 300 and divisible by 3
       - Contains only A, T, G, C
       - No internal in-frame stop codons
     """
@@ -23,8 +23,8 @@ def is_valid_sequence(seq: str) -> tuple[bool, str | None]:
         return False, "Does not start with ATG"
     if seq[-3:] not in STOP_CODONS:
         return False, "Does not end with a valid stop codon"
-    if len(seq) <= 300:
-        return False, "Length less than 300 bp"
+    # if len(seq) <= 300:
+    #     return False, "Length less than 300 bp"
     if len(seq) % 3 != 0:
         return False, "Length not divisible by 3"
     if not set(seq).issubset(VALID_NUCLEOTIDES):
@@ -90,7 +90,7 @@ def process_fasta(input_file, output_passed):
     filtered_sequences = filter_sequences_by_quality(sequences, log_file)
     
     # Remove length outliers using the Modified Z-score method
-    filtered_sequences = remove_length_outliers(filtered_sequences)
+    # filtered_sequences = remove_length_outliers(filtered_sequences)
 
     # Check if any sequences pass QC
     if filtered_sequences:
