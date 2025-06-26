@@ -101,7 +101,7 @@ def process_fasta(input_file, output_passed):
 
         with open(output_passed, "w") as out_f:
             for id_, seq in filtered_sequences.items():
-                out_f.write(f">{id_}\n{seq}\n")
+                out_f.write(f">{id_}\n{seq[:-3]}\n")
         print(f"Passed QC: {input_file} -> {output_passed}")
         print(f"QC log saved to: {log_file}")
     else:

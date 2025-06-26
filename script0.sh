@@ -21,7 +21,7 @@ mkdir -p QCseq msa
 # Find all files in the current directory with .txt and .fasta extensions.
 # The command 'ls *.txt *.fasta 2>/dev/null' lists these files.
 # 2>/dev/null suppresses error messages if no files match.
-input_files=($(ls *.txt *.fasta 2>/dev/null))
+input_files=($(ls *.fasta 2>/dev/null))
 
 # Check if the input_files array is empty.
 # If no files have been found, print a message and exit the script with status 1.
@@ -44,7 +44,7 @@ run_qc() {
     # Define the output file name:
     # The basename extracts the filename without the directory, and the extension
     # is removed (.txt) then '_QC.fasta' is appended to indicate QC processed output.
-    output_file="QCseq/$(basename "$file" .txt)_QC.fasta"
+    output_file="QCseq/$(basename "$file" .fasta)_QC.fasta"
 
     # Announce that the QC is starting for this file.
     echo "Running QC on $file..."
