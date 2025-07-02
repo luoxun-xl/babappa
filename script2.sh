@@ -72,8 +72,8 @@ run_codeml_for_treefile() {
     local species="$2"       # The species being processed.
     local species_output="$3"  # The output directory for this species.
 
-    # Change directory into the species-specific output folder.
-    cd "$species_output"
+    # # Change directory into the species-specific output folder.
+    # cd "$species_output"
     
     # Define the MSA file name used within the species directory.
     local msa_file="aligned.fas"

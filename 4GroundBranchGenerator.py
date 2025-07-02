@@ -4,7 +4,7 @@ import sys
 
 def generate_all_foreground_newicks(newick_tree, output_dir):
     # Find all gene names using regex
-    gene_pattern = r"([A-Za-z][A-Za-z0-9_.-]*)"
+    gene_pattern = r"([A-Za-z][A-Za-z0-9_.|-]*)"
     genes = set(re.findall(gene_pattern, newick_tree))  # Use set to avoid duplicates
     
     for gene in genes:
