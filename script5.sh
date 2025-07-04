@@ -64,7 +64,7 @@ for species_path in "$input_dir"/*/ ; do
                 # For extracting 'np' (number of parameters) value, the field is isolated by
                 # splitting the line using custom delimiters: "np:" and then ")". It takes the first
                 # word after "np:" as the value.
-                np=$(echo "$lnL_np_line" | awk -F "np:|\\)" '{print $2}' | awk '{print $1}')
+                np=$(echo "$lnL_np_line" | awk -F "np:|)" '{print $2}' | awk '{print $1}')
 
                 # ----------------------------
                 # Organize the output data by species
