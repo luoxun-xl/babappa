@@ -36,17 +36,47 @@ A user-friendly GUI is also available for beginners.
 1. Create environment
 
 ```bash
-conda create --name babappa
-conda activate babappa
+conda create --name BABAPPA
+conda activate BABAPPA
 
-mamba install -c bioconda prank iqtree paml -y
+mamba install conda-forge::python=3.10
+mamba install -c bioconda prank iqtree -y
 mamba install -c conda-forge biopython parallel scipy statsmodels pandas openpyxl -y
+
+# Or create environment from environment.yml
+conda env create -f environment.yml -n BABAPPA
 ```
 
-2. Clone BABAPPA repository
+2. Install `paml.v4.9j`‘
+
+- [Phylogenetic Analysis by Maximum Likelihood (PAML)](http://abacus.gene.ucl.ac.uk/software/paml.html#download)
+
+```bash
+cd ~/apps/biosoft
+wget http://abacus.gene.ucl.ac.uk/software/paml4.9j.tgz
+
+tar xf paml4.9j.tgz
+rm bin/*.exe
+cd src
+make -f Makefile
+ls -lF
+rm *.o
+mv baseml basemlg codeml pamp evolver yn00 chi2 ../bin
+cd ..
+ls -lF bin
+
+bin/baseml
+bin/codeml
+bin/evolver
+
+export PATH=$PATH:~/apps/biosoft/paml4.9j/bin/
+```
+
+3. Clone BABAPPA repository
 
 ```bash
 git clone git@github.com:luoxun-xl/babappa.git
+
 cd babappa
 chmod a+x ./*.sh
 ```
